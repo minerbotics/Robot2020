@@ -22,4 +22,16 @@ public final class Constants {
         public final static int kRightFrontMotorPort = 3;
         public final static int kRightBackMotorPort = 4;
     }
+
+    public final static class ClimbConstants {
+        public final static int kClimbMotorPort = 1;
+    }
+
+    public final static class ArmConstants {
+        public final static int kArmMotorPort = 2;
+    }
+
+    public final static class IntakeConstants {
+        public final static int kIntakeMotorPort = 3;
+    }
 }
