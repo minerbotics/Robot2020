@@ -7,14 +7,26 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ClimbConstants;
 
 public class Climber extends SubsystemBase {
+
+  private final Spark climbMoter;
   /**
-   * Creates a new ExampleSubsystem.
+   * Creates a new Climber.
    */
   public Climber() {
+    climbMoter = new Spark(ClimbConstants.kClimbMotorPort);
+  }
 
+  public void winch() {
+    climbMoter.set(1);
+  }
+
+  public void reverse() {
+    climbMoter.set(-1);
   }
 
   @Override
