@@ -9,9 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -21,10 +22,12 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveTrain m_driveTrain;
+  private final ArcadeDrive m_driveCommand;
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+  private final ArcadeDrive m_autoCommand;
+ 
+  private final XboxController m_driverController;
 
 
   /**
@@ -33,6 +36,13 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    m_driveTrain = new DriveTrain();
+
+    m_autoCommand = new ArcadeDrive(m_driveTrain, 1.0, 0.0);
+
+    m_driverController = new XboxController(0);
+    m_driveCommand = new ArcadeDrive(m_driveTrain, m_driverController.getY(Hand.kLeft), m_driverController.getX(Hand.kRight));
+    m_driveTrain.setDefaultCommand(m_driveCommand);
   }
 
   /**
