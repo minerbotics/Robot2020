@@ -7,25 +7,25 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class Harvest extends CommandBase {
+public class StopClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_intake;
+  private final Climber m_climber;
 
   /**
    * Creates a new ExampleCommand.
    *
-   * @param intake The subsystem used by this command.
+   * @param climber The subsystem used by this command.
    */
-  public Harvest(Intake intake) {
-    m_intake = intake;
+  public StopClimb(Climber climber) {
+    m_climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_intake);
+    addRequirements(m_climber);
   }
 
   // Called when the command is initially scheduled.
@@ -36,7 +36,7 @@ public class Harvest extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.harvest();
+    m_climber.stop();
   }
 
   // Called once the command ends or is interrupted.

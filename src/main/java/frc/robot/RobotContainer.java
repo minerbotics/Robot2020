@@ -10,8 +10,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.Climb;
+import frc.robot.commands.Eject;
+import frc.robot.commands.Harvest;
+import frc.robot.commands.ResetClimb;
+import frc.robot.commands.StopClimb;
+import frc.robot.commands.StopHarvest;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -22,22 +31,51 @@ import frc.robot.subsystems.DriveTrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain;
-  
+  private final Climber m_climber;
+  private final Intake m_intake;
+
   private final ArcadeDrive m_driveCommand;
+  private final Climb m_climbCommand;
+  private final StopClimb m_stopClimbCommand;
+  private final ResetClimb m_resetClimbCommand;
+  private final Harvest m_harvestCommand;
+  private final StopHarvest m_stopHarvestCommand;
+  private final Eject m_ejectCommand;
  
   XboxController m_driverController;
 
+  JoystickButton m_climbButton;
+  JoystickButton m_resetClimbButton;
+  JoystickButton m_harvestButton;
+  JoystickButton m_ejectButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
-   // configureButtonBindings();
     m_driveTrain = new DriveTrain();
-    m_driverController = new XboxController(0);
+    m_climber = new Climber();
+    m_intake = new Intake();
+    m_driverController = new XboxController(Constants.IOConstants.kControllerPort);
+
     m_driveCommand = new ArcadeDrive(m_driveTrain, m_driverController);
     m_driveTrain.setDefaultCommand(m_driveCommand);
+
+    m_climbCommand = new Climb(m_climber);
+    m_stopClimbCommand = new StopClimb(m_climber);
+    m_resetClimbCommand = new ResetClimb(m_climber);
+
+    m_harvestCommand = new Harvest(m_intake);
+    m_stopHarvestCommand = new StopHarvest(m_intake);
+    m_ejectCommand = new Eject(m_intake);
+
+    m_climbButton = new JoystickButton(m_driverController, Constants.IOConstants.kAButton);
+    m_resetClimbButton = new JoystickButton(m_driverController, Constants.IOConstants.kBButton);
+    m_harvestButton = new JoystickButton(m_driverController, Constants.IOConstants.kRBButton);
+    m_ejectButton = new JoystickButton(m_driverController, Constants.IOConstants.kLBButton);
+
+    // Configure the button bindings
+    configureButtonBindings();
   }
 
   /**
@@ -47,6 +85,15 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    m_climbButton.whenPressed(m_climbCommand);
+    m_climbButton.whenReleased(m_stopClimbCommand);
+    m_resetClimbButton.whenPressed(m_resetClimbCommand);
+    m_resetClimbButton.whenReleased(m_stopClimbCommand);
+
+    m_harvestButton.whenPressed(m_harvestCommand);
+    m_harvestButton.whenReleased(m_stopHarvestCommand);
+    m_ejectButton.whenPressed(m_ejectCommand);
+    m_ejectButton.whenReleased(m_stopHarvestCommand);
   }
 
 

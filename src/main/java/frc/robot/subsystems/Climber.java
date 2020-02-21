@@ -13,20 +13,24 @@ import frc.robot.Constants.ClimbConstants;
 
 public class Climber extends SubsystemBase {
 
-  private final Spark climbMoter;
+  private final Spark climbMotor;
   /**
    * Creates a new Climber.
    */
   public Climber() {
-    climbMoter = new Spark(ClimbConstants.kClimbMotorPort);
+    climbMotor = new Spark(ClimbConstants.kClimbMotorPort);
   }
 
   public void winch() {
-    climbMoter.set(1);
+    climbMotor.set(-1);
+  }
+
+  public void stop() {
+    climbMotor.set(0);
   }
 
   public void reverse() {
-    climbMoter.set(-1);
+    climbMotor.set(1);
   }
 
   @Override

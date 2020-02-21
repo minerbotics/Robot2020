@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class Harvest extends CommandBase {
+public class StopHarvest extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_intake;
 
@@ -22,7 +22,7 @@ public class Harvest extends CommandBase {
    *
    * @param intake The subsystem used by this command.
    */
-  public Harvest(Intake intake) {
+  public StopHarvest(Intake intake) {
     m_intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intake);
@@ -36,7 +36,7 @@ public class Harvest extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.harvest();
+    m_intake.stop();
   }
 
   // Called once the command ends or is interrupted.
