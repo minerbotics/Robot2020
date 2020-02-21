@@ -7,7 +7,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -15,17 +15,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class Eject extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Climber m_subsystem;
+  private final Intake m_intake;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Eject(Climber subsystem) {
-    m_subsystem = subsystem;
+  public Eject(Intake intake) {
+    m_intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.

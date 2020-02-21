@@ -7,7 +7,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Arm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -15,17 +15,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class MoveArm extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Climber m_subsystem;
+  private final Arm m_arm;
 
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param arm The subsystem used by this command.
    */
-  public MoveArm(Climber subsystem) {
-    m_subsystem = subsystem;
+  public MoveArm(Arm arm) {
+    m_arm = arm;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_arm);
   }
 
   // Called when the command is initially scheduled.

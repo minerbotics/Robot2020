@@ -13,19 +13,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class ExampleCommand extends CommandBase {
+public class ResetClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Climber m_subsystem;
+  private final Climber m_climber;
 
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param climber The subsystem used by this command.
    */
-  public ExampleCommand(Climber subsystem) {
-    m_subsystem = subsystem;
+  public ResetClimb(Climber climber) {
+    m_climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_climber);
   }
 
   // Called when the command is initially scheduled.

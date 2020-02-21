@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -33,10 +35,14 @@ public class DriveTrain extends SubsystemBase {
     back_right = new WPI_VictorSPX(DriveConstants.kRightBackMotorPort);
 
     back_left.follow(front_left);
-    back_left.setInverted(true);
+    back_left.setInverted(false);
     back_right.follow(front_right);
 
     m_drive = new DifferentialDrive(front_left, front_right);
+  }
+  
+  public void xboxDrive(XboxController controller) {
+    m_drive.arcadeDrive(-controller.getY(Hand.kLeft), controller.getX(Hand.kRight));
   }
 
   @Override
