@@ -15,9 +15,13 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Eject;
 import frc.robot.commands.Harvest;
+import frc.robot.commands.LowerArm;
+import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ResetClimb;
+import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimb;
 import frc.robot.commands.StopHarvest;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -29,11 +33,13 @@ import frc.robot.subsystems.Intake;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems
   private final DriveTrain m_driveTrain;
   private final Climber m_climber;
   private final Intake m_intake;
+  private final Arm m_arm;
 
+  // The robot's commands
   private final ArcadeDrive m_driveCommand;
   private final Climb m_climbCommand;
   private final StopClimb m_stopClimbCommand;
@@ -41,13 +47,20 @@ public class RobotContainer {
   private final Harvest m_harvestCommand;
   private final StopHarvest m_stopHarvestCommand;
   private final Eject m_ejectCommand;
+  private final RaiseArm m_raiseArmCommand;
+  private final StopArm m_stopArmCommand;
+  private final LowerArm m_lowerArmCommand;
  
+  // The Xbox controller
   XboxController m_driverController;
 
+  //The command buttons
   JoystickButton m_climbButton;
   JoystickButton m_resetClimbButton;
   JoystickButton m_harvestButton;
   JoystickButton m_ejectButton;
+  JoystickButton m_raiseArmButton;
+  JoystickButton m_lowerArmButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -56,6 +69,7 @@ public class RobotContainer {
     m_driveTrain = new DriveTrain();
     m_climber = new Climber();
     m_intake = new Intake();
+    m_arm = new Arm();
     m_driverController = new XboxController(Constants.IOConstants.kControllerPort);
 
     m_driveCommand = new ArcadeDrive(m_driveTrain, m_driverController);
@@ -69,10 +83,16 @@ public class RobotContainer {
     m_stopHarvestCommand = new StopHarvest(m_intake);
     m_ejectCommand = new Eject(m_intake);
 
+    m_raiseArmCommand = new RaiseArm(m_arm);
+    m_stopArmCommand = new StopArm(m_arm);
+    m_lowerArmCommand = new LowerArm(m_arm);
+
     m_climbButton = new JoystickButton(m_driverController, Constants.IOConstants.kAButton);
     m_resetClimbButton = new JoystickButton(m_driverController, Constants.IOConstants.kBButton);
     m_harvestButton = new JoystickButton(m_driverController, Constants.IOConstants.kRBButton);
     m_ejectButton = new JoystickButton(m_driverController, Constants.IOConstants.kLBButton);
+    m_raiseArmButton = new JoystickButton(m_driverController, Constants.IOConstants.kYButton);
+    m_lowerArmButton = new JoystickButton(m_driverController, Constants.IOConstants.kXButton);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -94,6 +114,11 @@ public class RobotContainer {
     m_harvestButton.whenReleased(m_stopHarvestCommand);
     m_ejectButton.whenPressed(m_ejectCommand);
     m_ejectButton.whenReleased(m_stopHarvestCommand);
+
+    m_raiseArmButton.whenPressed(m_raiseArmCommand);
+    m_raiseArmButton.whenReleased(m_stopArmCommand);
+    m_lowerArmButton.whenPressed(m_lowerArmCommand);
+    m_lowerArmButton.whenReleased(m_stopArmCommand);
   }
 
 

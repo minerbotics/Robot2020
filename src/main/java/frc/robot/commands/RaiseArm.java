@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class MoveArm extends CommandBase {
+public class RaiseArm extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Arm m_arm;
 
@@ -22,7 +22,7 @@ public class MoveArm extends CommandBase {
    *
    * @param arm The subsystem used by this command.
    */
-  public MoveArm(Arm arm) {
+  public RaiseArm(Arm arm) {
     m_arm = arm;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_arm);
@@ -36,6 +36,7 @@ public class MoveArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_arm.raise();
   }
 
   // Called once the command ends or is interrupted.

@@ -29,6 +29,8 @@ public final class Constants {
         public final static int kBButton = 2;
         public final static int kRBButton = 6;
         public final static int kLBButton = 5;
+        public final static int kYButton = 4;
+        public final static int kXButton = 3;
     }
 
     public final static class ClimbConstants {
