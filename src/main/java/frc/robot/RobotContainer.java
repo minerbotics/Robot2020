@@ -18,6 +18,7 @@ import frc.robot.commands.Harvest;
 import frc.robot.commands.LowerArm;
 import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ResetClimb;
+import frc.robot.commands.RunAndDump;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimb;
 import frc.robot.commands.StopHarvest;
@@ -50,6 +51,7 @@ public class RobotContainer {
   private final RaiseArm m_raiseArmCommand;
   private final StopArm m_stopArmCommand;
   private final LowerArm m_lowerArmCommand;
+  private final RunAndDump m_runAndDumpCommand;
  
   // The Xbox controller
   XboxController m_driverController;
@@ -87,6 +89,8 @@ public class RobotContainer {
     m_stopArmCommand = new StopArm(m_arm);
     m_lowerArmCommand = new LowerArm(m_arm);
 
+    m_runAndDumpCommand = new RunAndDump(m_driveTrain, m_arm, m_intake);
+
     m_climbButton = new JoystickButton(m_driverController, Constants.IOConstants.kAButton);
     m_resetClimbButton = new JoystickButton(m_driverController, Constants.IOConstants.kBButton);
     m_harvestButton = new JoystickButton(m_driverController, Constants.IOConstants.kRBButton);
@@ -121,7 +125,6 @@ public class RobotContainer {
     m_lowerArmButton.whenReleased(m_stopArmCommand);
   }
 
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -129,6 +132,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_driveCommand;
+    return m_runAndDumpCommand;
   }
 }
