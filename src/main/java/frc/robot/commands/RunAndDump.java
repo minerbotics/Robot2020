@@ -23,7 +23,7 @@ public class RunAndDump extends SequentialCommandGroup {
     addCommands(
       new LowerArm(arm).withTimeout(0.5),
       new RaiseArm(arm).withTimeout(0.45),
-//      new AutoArcadeDrive(drivetrain, speed).withTimeout(2),
+      new AutoDrive(drive, 0.75).withTimeout(2),
       new Eject(intake).withTimeout(1)
     );
     // Use addRequirements() here to declare subsystem dependencies.
