@@ -22,7 +22,7 @@ public class RunBackward extends SequentialCommandGroup {
     addCommands(
       new LowerArm(arm).withTimeout(0.5),
       new RaiseArm(arm).withTimeout(0.25),
-      new RaiseArm(arm).withTimeout(0.25),
+      new StopArm(arm),
       new AutoDrive(drive, -0.5).withTimeout(1),
       new AutoDrive(drive, 0)
     );
