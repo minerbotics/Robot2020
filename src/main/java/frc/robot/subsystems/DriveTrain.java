@@ -51,6 +51,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double forward, double rotation) {
+    rotation = rotation * 0.875;
     m_drive.arcadeDrive(forward, rotation, true);
   }
 }
