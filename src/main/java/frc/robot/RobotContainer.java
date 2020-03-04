@@ -22,6 +22,7 @@ import frc.robot.commands.LowerArm;
 import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ResetClimb;
 import frc.robot.commands.RunAndDump;
+import frc.robot.commands.RunAndDumpAndRun;
 import frc.robot.commands.RunBackward;
 import frc.robot.commands.RunForward;
 import frc.robot.commands.StopArm;
@@ -64,6 +65,7 @@ public class RobotContainer {
   private final ZagRightAndDump m_zagRightAndDumpCommand;
   private final RunForward m_runForwardCommand;
   private final RunBackward m_runBackwardCommand;
+  private final RunAndDumpAndRun m_runAndDumpAndRunCommand;
  
   // The Xbox controller
   XboxController m_driverController;
@@ -109,6 +111,7 @@ public class RobotContainer {
     m_zagRightAndDumpCommand = new ZagRightAndDump(m_driveTrain, m_arm, m_intake);
     m_runForwardCommand = new RunForward(m_driveTrain, m_arm);
     m_runBackwardCommand = new RunBackward(m_driveTrain, m_arm);
+    m_runAndDumpAndRunCommand = new RunAndDumpAndRun(m_driveTrain, m_arm, m_intake);
 
     m_climbButton = new JoystickButton(m_driverController, Constants.IOConstants.kAButton);
     m_resetClimbButton = new JoystickButton(m_driverController, Constants.IOConstants.kBButton);
@@ -119,11 +122,12 @@ public class RobotContainer {
 
     m_chooser = new SendableChooser<Command>();
     m_chooser.setDefaultOption("RunAndDump", m_runAndDumpCommand);
+    m_chooser.setDefaultOption("RunAndDumpAndRun", m_runAndDumpAndRunCommand);
     m_chooser.addOption("DumpAndRun", m_dumpAndRunCommand);
-    m_chooser.addOption("DumpAndRun", m_zagLeftAndDumpCommand);
-    m_chooser.addOption("DumpAndRun", m_zagRightAndDumpCommand);
-    m_chooser.addOption("DumpAndRun", m_runForwardCommand);
-    m_chooser.addOption("DumpAndRun", m_runBackwardCommand);
+    m_chooser.addOption("ZagLeftAndRun", m_zagLeftAndDumpCommand);
+    m_chooser.addOption("ZagRightAndRun", m_zagRightAndDumpCommand);
+    m_chooser.addOption("RunForward", m_runForwardCommand);
+    m_chooser.addOption("RunBackward", m_runBackwardCommand);
 
     Shuffleboard.getTab("ComboBox Chooser").add(m_chooser);
 

@@ -23,6 +23,7 @@ public class ZagRightAndDump extends SequentialCommandGroup {
     addCommands(
       new LowerArm(arm).withTimeout(0.5),
       new RaiseArm(arm).withTimeout(0.25),
+      new StopArm(arm),
       new AutoDrive(drive, 0.75).withTimeout(0.34),
       new AutoTurn(drive, 0.5).withTimeout(0.3),
       new AutoDrive(drive, 0.75).withTimeout(0.34),

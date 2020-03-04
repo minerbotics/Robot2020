@@ -23,6 +23,7 @@ public class RunAndDumpAndRun extends SequentialCommandGroup {
     addCommands(
       new LowerArm(arm).withTimeout(0.5),
       new RaiseArm(arm).withTimeout(0.25),
+      new StopArm(arm),
       new AutoDrive(drive, 0.75).withTimeout(1),
       new Eject(intake).withTimeout(1.5),
       new StopHarvest(intake),
