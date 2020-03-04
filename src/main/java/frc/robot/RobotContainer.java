@@ -9,19 +9,25 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Climb;
+import frc.robot.commands.DumpAndRun;
 import frc.robot.commands.Eject;
 import frc.robot.commands.Harvest;
 import frc.robot.commands.LowerArm;
 import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ResetClimb;
 import frc.robot.commands.RunAndDump;
+import frc.robot.commands.RunBackward;
+import frc.robot.commands.RunForward;
 import frc.robot.commands.StopArm;
 import frc.robot.commands.StopClimb;
 import frc.robot.commands.StopHarvest;
+import frc.robot.commands.ZagLeftAndDump;
+import frc.robot.commands.ZagRightAndDump;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
@@ -52,6 +58,11 @@ public class RobotContainer {
   private final StopArm m_stopArmCommand;
   private final LowerArm m_lowerArmCommand;
   private final RunAndDump m_runAndDumpCommand;
+  private final DumpAndRun m_dumpAndRunCommand;
+  private final ZagLeftAndDump m_zagLeftAndDumpCommand;
+  private final ZagRightAndDump m_zagRightAndDumpCommand;
+  private final RunForward m_runForwardCommand;
+  private final RunBackward m_runBackwardCommand;
  
   // The Xbox controller
   XboxController m_driverController;
@@ -63,6 +74,8 @@ public class RobotContainer {
   JoystickButton m_ejectButton;
   JoystickButton m_raiseArmButton;
   JoystickButton m_lowerArmButton;
+
+  public static SendableChooser<Command> m_chooser;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -90,6 +103,11 @@ public class RobotContainer {
     m_lowerArmCommand = new LowerArm(m_arm);
 
     m_runAndDumpCommand = new RunAndDump(m_driveTrain, m_arm, m_intake);
+    m_dumpAndRunCommand = new DumpAndRun(m_driveTrain, m_arm, m_intake);
+    m_zagLeftAndDumpCommand = new ZagLeftAndDump(m_driveTrain, m_arm, m_intake);
+    m_zagRightAndDumpCommand = new ZagRightAndDump(m_driveTrain, m_arm, m_intake);
+    m_runForwardCommand = new RunForward(m_driveTrain, m_arm);
+    m_runBackwardCommand = new RunBackward(m_driveTrain, m_arm);
 
     m_climbButton = new JoystickButton(m_driverController, Constants.IOConstants.kAButton);
     m_resetClimbButton = new JoystickButton(m_driverController, Constants.IOConstants.kBButton);
@@ -97,6 +115,14 @@ public class RobotContainer {
     m_ejectButton = new JoystickButton(m_driverController, Constants.IOConstants.kLBButton);
     m_raiseArmButton = new JoystickButton(m_driverController, Constants.IOConstants.kYButton);
     m_lowerArmButton = new JoystickButton(m_driverController, Constants.IOConstants.kXButton);
+
+    m_chooser = new SendableChooser<Command>();
+    m_chooser.setDefaultOption("RunAndDump", m_runAndDumpCommand);
+    m_chooser.addOption("DumpAndRun", m_dumpAndRunCommand);
+    m_chooser.addOption("DumpAndRun", m_zagLeftAndDumpCommand);
+    m_chooser.addOption("DumpAndRun", m_zagRightAndDumpCommand);
+    m_chooser.addOption("DumpAndRun", m_runForwardCommand);
+    m_chooser.addOption("DumpAndRun", m_runBackwardCommand);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -132,6 +158,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_runAndDumpCommand;
+    return m_chooser.getSelected();
   }
 }

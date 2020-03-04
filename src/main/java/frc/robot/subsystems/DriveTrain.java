@@ -42,7 +42,7 @@ public class DriveTrain extends SubsystemBase {
   }
   
   public void xboxDrive(XboxController controller) {
-    m_drive.arcadeDrive(-controller.getY(Hand.kLeft), controller.getX(Hand.kRight));
+    m_drive.arcadeDrive(-controller.getY(Hand.kLeft), controller.getX(Hand.kLeft));
   }
 
   @Override
