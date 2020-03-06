@@ -21,12 +21,13 @@ public class DumpAndRun extends SequentialCommandGroup {
   
   public DumpAndRun(DriveTrain drive, Arm arm, Intake intake) {
     addCommands(
+      new StopHarvest(intake).withTimeout(3),
       new Eject(intake).withTimeout(1.5),
       new StopHarvest(intake),
       new AutoDrive(drive, -0.5).withTimeout(1),
       new LowerArm(arm).withTimeout(0.5),
       new RaiseArm(arm).withTimeout(0.25),
-      new StopArm(arm)
+      new StopArm(arm).withTimeout(0.02)
     );
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive, arm, intake);
